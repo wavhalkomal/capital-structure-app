@@ -1,0 +1,1427 @@
+{
+  "statement_type": "balance_sheet",
+  "role_uri": "http://www.advanceautoparts.com/role/CondensedConsolidatedBalanceSheets",
+  "name": "CondensedConsolidatedBalanceSheets",
+  "entity_name": "ADVANCE AUTO PARTS INC",
+  "company_name": "ADVANCE AUTO PARTS INC",
+  "ticker": "AAP",
+  "cik": "0001158449",
+  "columns": [
+    {
+      "key": "Q4_2024",
+      "display_label": "Q4 2024",
+      "period_type": "instant",
+      "end_date": "2024-12-28",
+      "start_date": null,
+      "fiscal_year": 2024,
+      "fiscal_quarter": 4,
+      "is_restated": false,
+      "source_accession": "000162828025047523",
+      "source_filing_date": null,
+      "column_type": "period"
+    },
+    {
+      "key": "Q4_2024",
+      "display_label": "Q4 2024",
+      "period_type": "instant",
+      "end_date": "2024-10-05",
+      "start_date": null,
+      "fiscal_year": 2024,
+      "fiscal_quarter": 4,
+      "is_restated": false,
+      "source_accession": "000162828025047523",
+      "source_filing_date": null,
+      "column_type": "period"
+    }
+  ],
+  "rows": [
+    {
+      "concept": "StatementOfFinancialPositionAbstract",
+      "label": "Statement of Financial Position",
+      "labels": {
+        "standard": "Statement of Financial Position [Abstract]",
+        "terse": "Statement of Financial Position [Abstract]"
+      },
+      "level": 0,
+      "values": {},
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": true,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "AssetsAbstract",
+      "label": "Assets",
+      "labels": {
+        "terse": "Assets",
+        "standard": "Assets [Abstract]"
+      },
+      "level": 1,
+      "values": {},
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": true,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "AssetsCurrentAbstract",
+      "label": "Current assets:",
+      "labels": {
+        "terse": "Current assets:",
+        "standard": "Assets, Current [Abstract]"
+      },
+      "level": 2,
+      "values": {},
+      "is_total": false,
+      "is_header": true,
+      "is_abstract": true,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "CashAndCashEquivalentsAtCarryingValue",
+      "label": "Cash and cash equivalents",
+      "labels": {
+        "verbose": "Cash and cash equivalents",
+        "standard": "Cash and Cash Equivalent",
+        "terse": "Cash and cash equivalents",
+        "period_start": "Cash and cash equivalents, beginning of period",
+        "period_end": "Cash and cash equivalents, end of period"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 1869.0,
+          "numeric_value": 1869000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "debit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "AccountsReceivableNetCurrent",
+      "label": "Receivables, net",
+      "labels": {
+        "terse": "Receivables, net",
+        "standard": "Accounts Receivable, after Allowance for Credit Loss, Current"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 544.0,
+          "numeric_value": 544000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "debit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "InventoryNet",
+      "label": "Inventories, net",
+      "labels": {
+        "terse": "Inventories, net",
+        "standard": "Inventory, Net",
+        "total": "Inventories at LIFO"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 3612.0,
+          "numeric_value": 3612000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "debit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "OtherAssetsCurrent",
+      "label": "Other current assets",
+      "labels": {
+        "terse": "Other current assets",
+        "standard": "Other Assets, Current"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 118.0,
+          "numeric_value": 118000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "AssetsOfDisposalGroupIncludingDiscontinuedOperationCurrent",
+      "label": "Current assets held for sale",
+      "labels": {
+        "terse": "Current assets held for sale",
+        "standard": "Disposal Group, Including Discontinued Operation, Assets, Current"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 2137690.0,
+          "numeric_value": 2137690000.0,
+          "format_type": "thousands",
+          "decimals": -3,
+          "scale": 3,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "AssetsCurrent",
+      "label": "Total current assets",
+      "labels": {
+        "total": "Total current assets",
+        "standard": "Assets, Current",
+        "terse": "Total current assets"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 6143.0,
+          "numeric_value": 6143000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": true,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "debit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "PropertyPlantAndEquipmentNet",
+      "label": "Property and equipment, net",
+      "labels": {
+        "terse": "Property and equipment, net",
+        "standard": "Property, Plant and Equipment, Net",
+        "verbose": "Property and equipment, net of accumulated depreciation of $3,060,247 and $2,729,208",
+        "total": "Property and Equipment, Net"
+      },
+      "level": 2,
+      "values": {
+        "Q4_2024": {
+          "display_value": 1334.0,
+          "numeric_value": 1334000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "debit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "OperatingLeaseRightOfUseAsset",
+      "label": "Operating lease right-of-use assets",
+      "labels": {
+        "terse": "Operating lease right-of-use assets",
+        "standard": "Operating Lease, Right-of-Use Asset"
+      },
+      "level": 2,
+      "values": {
+        "Q4_2024": {
+          "display_value": 2243.0,
+          "numeric_value": 2243000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "Goodwill",
+      "label": "Goodwill",
+      "labels": {
+        "terse": "Goodwill",
+        "standard": "Goodwill",
+        "period_start": "Goodwill, Beginning Balance",
+        "period_end": "Goodwill, Ending Balance"
+      },
+      "level": 2,
+      "values": {
+        "Q4_2024": {
+          "display_value": 598.0,
+          "numeric_value": 598000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "debit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "IntangibleAssetsNetExcludingGoodwill",
+      "label": "Other intangible assets, net",
+      "labels": {
+        "terse": "Other intangible assets, net",
+        "standard": "Intangible Assets, Net (Excluding Goodwill)",
+        "total": "Intangible Assets, Net (Excluding Goodwill)"
+      },
+      "level": 2,
+      "values": {
+        "Q4_2024": {
+          "display_value": 406.0,
+          "numeric_value": 406000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "debit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "OtherAssetsNoncurrent",
+      "label": "Other assets",
+      "labels": {
+        "terse": "Other assets",
+        "standard": "Other Assets, Noncurrent"
+      },
+      "level": 2,
+      "values": {
+        "Q4_2024": {
+          "display_value": 74.0,
+          "numeric_value": 74000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "debit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "DisposalGroupIncludingDiscontinuedOperationAssetsNoncurrent",
+      "label": "Disposal Group, Including Discontinued Operation, Assets, Noncurrent",
+      "labels": {
+        "terse": "Disposal Group, Including Discontinued Operation, Assets, Noncurrent",
+        "standard": "Disposal Group, Including Discontinued Operation, Assets, Noncurrent"
+      },
+      "level": 2,
+      "values": {
+        "Q4_2024": {
+          "display_value": 0.0,
+          "numeric_value": 0.0,
+          "format_type": "thousands",
+          "decimals": -3,
+          "scale": 3,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "Assets",
+      "label": "Total assets",
+      "labels": {
+        "total": "Total assets",
+        "standard": "Assets",
+        "terse": "Assets"
+      },
+      "level": 2,
+      "values": {
+        "Q4_2024": {
+          "display_value": 10798.0,
+          "numeric_value": 10798000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": true,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "debit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "LiabilitiesAndStockholdersEquityAbstract",
+      "label": "Liabilities and Stockholders\u2019 Equity",
+      "labels": {
+        "terse": "Liabilities and Stockholders\u2019 Equity",
+        "standard": "Liabilities and Equity [Abstract]"
+      },
+      "level": 1,
+      "values": {},
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": true,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "LiabilitiesCurrentAbstract",
+      "label": "Current liabilities:",
+      "labels": {
+        "terse": "Current liabilities:",
+        "standard": "Liabilities, Current [Abstract]"
+      },
+      "level": 2,
+      "values": {},
+      "is_total": false,
+      "is_header": true,
+      "is_abstract": true,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "AccountsPayableCurrent",
+      "label": "Accounts payable",
+      "labels": {
+        "terse": "Accounts payable",
+        "standard": "Accounts Payable, Current"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 3408.0,
+          "numeric_value": 3408000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "credit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "AccruedLiabilitiesCurrent",
+      "label": "Accrued expenses",
+      "labels": {
+        "terse": "Accrued expenses",
+        "standard": "Accrued Liabilities, Current"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 784.0,
+          "numeric_value": 784000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "credit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "LongTermDebtCurrent",
+      "label": "Less: Current portion of long-term debt",
+      "labels": {
+        "terse": "Less: Current portion of long-term debt",
+        "standard": "Long-Term Debt, Current Maturities"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 0.0,
+          "numeric_value": 0.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "credit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "OtherLiabilitiesCurrent",
+      "label": "Other current liabilities",
+      "labels": {
+        "verbose": "Other current liabilities",
+        "standard": "Other Liabilities, Current",
+        "terse": "Other current liabilities"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 473.0,
+          "numeric_value": 473000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "LiabilitiesOfDisposalGroupIncludingDiscontinuedOperationCurrent",
+      "label": "Current liabilities held for sale",
+      "labels": {
+        "terse": "Current liabilities held for sale",
+        "standard": "Disposal Group, Including Discontinued Operation, Liabilities, Current"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 994824.0,
+          "numeric_value": 994824000.0,
+          "format_type": "thousands",
+          "decimals": -3,
+          "scale": 3,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "LiabilitiesCurrent",
+      "label": "Total current liabilities",
+      "labels": {
+        "total": "Total current liabilities",
+        "standard": "Liabilities, Current",
+        "terse": "Total current liabilities"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 4665.0,
+          "numeric_value": 4665000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": true,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "credit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "LongTermDebtNoncurrent",
+      "label": "Long-term debt",
+      "labels": {
+        "verbose": "Long-term debt",
+        "terse": "Long-term debt, excluding the current portion",
+        "standard": "Long-Term Debt, Excluding Current Maturities"
+      },
+      "level": 2,
+      "values": {
+        "Q4_2024": {
+          "display_value": 1789.0,
+          "numeric_value": 1789000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "credit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "OperatingLeaseLiabilityNoncurrent",
+      "label": "Operating lease liabilities",
+      "labels": {
+        "terse": "Operating lease liabilities",
+        "standard": "Operating Lease, Liability, Noncurrent"
+      },
+      "level": 2,
+      "values": {
+        "Q4_2024": {
+          "display_value": 1897.0,
+          "numeric_value": 1897000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "DeferredIncomeTaxLiabilitiesNet",
+      "label": "Deferred income taxes",
+      "labels": {
+        "terse": "Deferred income taxes",
+        "standard": "Deferred Income Tax Liabilities, Net"
+      },
+      "level": 2,
+      "values": {
+        "Q4_2024": {
+          "display_value": 193.0,
+          "numeric_value": 193000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "OtherLiabilitiesNoncurrent",
+      "label": "Other long-term liabilities",
+      "labels": {
+        "verbose": "Other long-term liabilities",
+        "standard": "Other Liabilities, Noncurrent",
+        "terse": "Other Liabilities, Noncurrent"
+      },
+      "level": 2,
+      "values": {
+        "Q4_2024": {
+          "display_value": 84.0,
+          "numeric_value": 84000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "credit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "LiabilitiesOfDisposalGroupIncludingDiscontinuedOperationNoncurrent",
+      "label": "Disposal Group, Including Discontinued Operation, Liabilities, Noncurrent",
+      "labels": {
+        "terse": "Disposal Group, Including Discontinued Operation, Liabilities, Noncurrent",
+        "standard": "Disposal Group, Including Discontinued Operation, Liabilities, Noncurrent"
+      },
+      "level": 2,
+      "values": {},
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "LiabilitiesOfDisposalGroupIncludingDiscontinuedOperation",
+      "label": "Disposal Group, Including Discontinued Operation, Liabilities",
+      "labels": {
+        "terse": "Disposal Group, Including Discontinued Operation, Liabilities",
+        "total": "Total liabilities held for sale",
+        "standard": "Disposal Group, Including Discontinued Operation, Liabilities"
+      },
+      "level": 2,
+      "values": {},
+      "is_total": true,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "Liabilities",
+      "label": "Total liabilities",
+      "labels": {
+        "total": "Total liabilities",
+        "standard": "Liabilities",
+        "terse": "Liabilities"
+      },
+      "level": 2,
+      "values": {
+        "Q4_2024": {
+          "display_value": 8628.0,
+          "numeric_value": 8628000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": true,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "credit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "CommitmentsAndContingencies",
+      "label": "Commitments and Contingencies",
+      "labels": {
+        "terse": "Commitments and contingencies (Note 10)",
+        "standard": "Commitments and Contingencies"
+      },
+      "level": 2,
+      "values": {
+        "Q4_2024": {
+          "display_value": null,
+          "numeric_value": null,
+          "format_type": "unknown",
+          "decimals": null,
+          "scale": 0,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "StockholdersEquityAbstract",
+      "label": "Stockholders\u2019 equity:",
+      "labels": {
+        "terse": "Stockholders\u2019 equity:",
+        "standard": "Equity, Attributable to Parent [Abstract]"
+      },
+      "level": 2,
+      "values": {},
+      "is_total": false,
+      "is_header": true,
+      "is_abstract": true,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "PreferredStockValue",
+      "label": "Preferred Stock, Value, Issued",
+      "labels": {
+        "terse": "Preferred stock, nonvoting, $0.0001 par value, 10 million shares authorized; no shares issued or outstanding",
+        "standard": "Preferred Stock, Value, Issued"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 0.0,
+          "numeric_value": 0.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 3,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "SharesOutstanding",
+      "label": "Shares, Outstanding",
+      "labels": {
+        "terse": "Shares, Outstanding",
+        "standard": "Shares, Outstanding"
+      },
+      "level": 2,
+      "values": {},
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "CommonStockValue",
+      "label": "Common Stock, Value, Issued",
+      "labels": {
+        "terse": "Common stock, voting, and additional paid-in capital, $0.0001 par value, 200 million shares authorized; 78 million shares issued and 60 million outstanding at October\u00a04, 2025 and 78 million shares issued and 60 million outstanding at December 28, 2024",
+        "standard": "Common Stock, Value, Issued"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 994.0,
+          "numeric_value": 994000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "credit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "AdditionalPaidInCapitalCommonStock",
+      "label": "Additional paid-in capital",
+      "labels": {
+        "terse": "Additional paid-in capital",
+        "standard": "Additional Paid in Capital, Common Stock"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 987657.0,
+          "numeric_value": 987657000.0,
+          "format_type": "thousands",
+          "decimals": -3,
+          "scale": 3,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "TreasuryStockValue",
+      "label": "Treasury stock, at cost, 14,654 and 9,944 shares",
+      "labels": {
+        "negated": "Treasury stock, at cost, 14,654 and 9,944 shares",
+        "standard": "Treasury Stock, Value"
+      },
+      "level": 3,
+      "values": {},
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "debit",
+      "is_negated": true,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "TreasuryStockCommonShares",
+      "label": "Treasury stock (shares)",
+      "labels": {
+        "terse": "Treasury stock (shares)",
+        "standard": "Treasury Stock, Common, Shares"
+      },
+      "level": 3,
+      "values": {},
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "TreasuryStockCommonValue",
+      "label": "Treasury stock, at cost",
+      "labels": {
+        "negated": "Treasury stock, at cost",
+        "standard": "Treasury Stock, Common, Value",
+        "terse": "Treasury stock, at cost, 17,947 and 17,837 shares"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 2940.0,
+          "numeric_value": 2940000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": null,
+      "balance_type": null,
+      "is_negated": true,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "AccumulatedOtherComprehensiveIncomeLossNetOfTax",
+      "label": "Accumulated other comprehensive loss",
+      "labels": {
+        "terse": "Accumulated other comprehensive loss",
+        "standard": "Accumulated Other Comprehensive Income (Loss), Net of Tax",
+        "period_start": "Balance, Beginning of Period",
+        "period_end": "Balance, End of Period"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": -47.0,
+          "numeric_value": -47000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "credit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "RetainedEarningsAccumulatedDeficit",
+      "label": "Retained earnings",
+      "labels": {
+        "terse": "Retained earnings",
+        "standard": "Retained Earnings (Accumulated Deficit)"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 4163.0,
+          "numeric_value": 4163000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": false,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "credit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "StockholdersEquity",
+      "label": "Total stockholders\u2019 equity",
+      "labels": {
+        "total": "Total stockholders\u2019 equity",
+        "period_start": "Balance",
+        "period_end": "Balance",
+        "standard": "Equity, Attributable to Parent",
+        "terse": "Stockholders' equity"
+      },
+      "level": 3,
+      "values": {
+        "Q4_2024": {
+          "display_value": 2598.0,
+          "numeric_value": 2598000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": true,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "credit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    },
+    {
+      "concept": "LiabilitiesAndStockholdersEquity",
+      "label": "Total liabilities and stockholders\u2019 equity",
+      "labels": {
+        "total": "Total liabilities and stockholders\u2019 equity",
+        "standard": "Liabilities and Equity",
+        "terse": "Liabilities and Equity"
+      },
+      "level": 2,
+      "values": {
+        "Q4_2024": {
+          "display_value": 10798.0,
+          "numeric_value": 10798000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "is_total": true,
+      "is_header": false,
+      "is_abstract": false,
+      "is_dimensional_breakdown": false,
+      "dimension_axis": null,
+      "dimension_member": null,
+      "parent_concept": null,
+      "period_type": "instant",
+      "balance_type": "credit",
+      "is_negated": false,
+      "is_duplicate": false,
+      "duplicate_of": null,
+      "duplicate_info": null
+    }
+  ],
+  "extracted_at": "2026-02-17T22:54:51.282130Z",
+  "source_filings": [
+    "000162828025047523",
+    "000115844925000272",
+    "000115844925000189",
+    "000115844925000064",
+    "000115844924000238",
+    "000115844924000195",
+    "000115844924000132",
+    "000115844924000048",
+    "000115844923000243",
+    "000115844923000204",
+    "000115844923000142",
+    "000115844923000035",
+    "000115844922000268",
+    "000115844922000235",
+    "000115844922000176",
+    "000115844922000037",
+    "000115844921000213",
+    "000115844921000176",
+    "000115844921000132"
+  ]
+}

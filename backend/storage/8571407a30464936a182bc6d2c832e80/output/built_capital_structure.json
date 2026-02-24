@@ -1,0 +1,207 @@
+{
+  "company_name": "ADVANCE AUTO PARTS INC",
+  "company_name_display": "Advance Auto Parts, Inc.",
+  "ticker": "AAP",
+  "cik": "0001158449",
+  "annual_period": 2024,
+  "period_end_date_text": "December 28, 2024",
+  "selected_period_end_date": "2024-12-28",
+  "issuer_groups": [
+    {
+      "issuer": "Advance Auto Parts, Inc.",
+      "priority_groups": [
+        {
+          "priority": "Senior Secured",
+          "instruments": [
+            {
+              "instrument_name": "Total operating lease liabilities",
+              "amount_outstanding_mm": 2358.693,
+              "amount_available_mm": null,
+              "coupon_percent": null,
+              "maturity_year": "Various",
+              "priority": "Senior Secured",
+              "parent_issuer": null,
+              "issue_date": null,
+              "instrument_type": "operating_lease",
+              "lien_level": null,
+              "provenance": {
+                "table_index": 0,
+                "period_end_date_text": "December 28, 2024",
+                "value_cell_index": 4,
+                "row_text": "Total operating lease liabilities | Total operating lease liabilities | Total operating lease liabilities | $ | 2,358,693 |  |  |  |  | $ | 2,423,183 | ",
+                "html_snippet": "<table style=\"border-collapse:collapse;display:inline-table;margin-bottom:5pt;vertical-align:text-bottom;width:67.251%\"><tr><td style=\"width:1.0%\"></td><td style=\"width:58.247%\"></td><td style=\"width:0.1%\"></td><td style=\"width:1.0%\"></td><td style=\"width:18.682%\"></td><td style=\"width:0.1%\"></td><td style=\"width:0.1%\"></td><td style=\"width:0.886%\"></td><td style=\"width:0.1%\"></td><td style=\"width:1.0%\"></td><td style=\"width:18.685%\"></td><td style=\"width:0.1%\"></td></tr><tr><td colspan=\"3\" style=\"padding:0 1pt\"></td><td colspan=\"3\" style=\"padding:2px 1pt;text-align:center;vertical-align:bottom\"><span style=\"color:#000000;font-family:'Calibri',sans-serif;font-size:10pt;font-weight:700;line-height:100%\">December 28, 2024</span></td><td colspan=\"3\" style=\"padding:0 1pt\"></td><td colspan=\"3\" style=\"padding:2px 1pt;text-align:center;vertical-align:bottom\"><span style=\"color:#000000;font-family:'Calibri',sans-serif;font-size:10pt;font-weight:700;line-height:100%\">December 30, 2023</span></td></tr><tr><td colspan=\"3\" style=\"background-color:#cceeff;padding:2px 1pt;text-align:left;vertical-align:bottom\"><span style=\"color:#000000;font-family:'Calibri',sans-serif;font-size:10pt;font-weight..."
+              }
+            },
+            {
+              "instrument_name": "Non-current operating lease liabilities",
+              "amount_outstanding_mm": 1897.165,
+              "amount_available_mm": null,
+              "coupon_percent": null,
+              "maturity_year": "Various",
+              "priority": "Senior Secured",
+              "parent_issuer": null,
+              "issue_date": null,
+              "instrument_type": "operating_lease",
+              "lien_level": null,
+              "provenance": {
+                "table_index": 0,
+                "period_end_date_text": "December 28, 2024",
+                "value_cell_index": 4,
+                "row_text": "Non-current operating lease liabilities | Non-current operating lease liabilities | Non-current operating lease liabilities | $ | 1,897,165 |  |  |  |  | $ | 2,039,908 | ",
+                "html_snippet": "<table style=\"border-collapse:collapse;display:inline-table;margin-bottom:5pt;vertical-align:text-bottom;width:67.251%\"><tr><td style=\"width:1.0%\"></td><td style=\"width:58.247%\"></td><td style=\"width:0.1%\"></td><td style=\"width:1.0%\"></td><td style=\"width:18.682%\"></td><td style=\"width:0.1%\"></td><td style=\"width:0.1%\"></td><td style=\"width:0.886%\"></td><td style=\"width:0.1%\"></td><td style=\"width:1.0%\"></td><td style=\"width:18.685%\"></td><td style=\"width:0.1%\"></td></tr><tr><td colspan=\"3\" style=\"padding:0 1pt\"></td><td colspan=\"3\" style=\"padding:2px 1pt;text-align:center;vertical-align:bottom\"><span style=\"color:#000000;font-family:'Calibri',sans-serif;font-size:10pt;font-weight:700;line-height:100%\">December 28, 2024</span></td><td colspan=\"3\" style=\"padding:0 1pt\"></td><td colspan=\"3\" style=\"padding:2px 1pt;text-align:center;vertical-align:bottom\"><span style=\"color:#000000;font-family:'Calibri',sans-serif;font-size:10pt;font-weight:700;line-height:100%\">December 30, 2023</span></td></tr><tr><td colspan=\"3\" style=\"background-color:#cceeff;padding:2px 1pt;text-align:left;vertical-align:bottom\"><span style=\"color:#000000;font-family:'Calibri',sans-serif;font-size:10pt;font-weight..."
+              }
+            }
+          ],
+          "subtotal": {
+            "subtotal_outstanding_mm": 4255.858
+          }
+        },
+        {
+          "priority": "Unsecured",
+          "instruments": [
+            {
+              "instrument_name": "Unsecured Revolving Credit Facility (2021 Credit Agreement)",
+              "amount_outstanding_mm": 0.0,
+              "amount_available_mm": null,
+              "coupon_percent": "variable",
+              "maturity_year": 2027,
+              "priority": "Unsecured",
+              "parent_issuer": null,
+              "issue_date": "2021-11-09",
+              "instrument_type": "credit_facility",
+              "lien_level": null,
+              "provenance": {
+                "source": "narrative",
+                "agreement_name": "2021 Credit Agreement"
+              }
+            },
+            {
+              "instrument_name": "5.90 % Senior Unsecured Notes (net of unamortized discount and debt issuance costs of $ 890 and$ 1,631 at December 28, 2024, and December 30, 2023) due March 9, 2026",
+              "amount_outstanding_mm": 299.11,
+              "amount_available_mm": null,
+              "coupon_percent": null,
+              "maturity_year": 2026,
+              "priority": "Unsecured",
+              "parent_issuer": null,
+              "issue_date": "2023-03-09",
+              "instrument_type": "bond",
+              "lien_level": null,
+              "provenance": {
+                "source": "table",
+                "table_index": 0,
+                "row_text": "5.90 % Senior Unsecured Notes (net of unamortized discount and debt issuance costs of $ 890 and$ 1,631 at December 28, 2024, and December 30, 2023) due March 9, 2026 | $ | 299,110 |  |  | $ | 298,369 | "
+              }
+            },
+            {
+              "instrument_name": "1.75 % Senior Unsecured Notes (net of unamortized discount and debt issuance costs of $ 1,916 and $ 2,486 at December 28, 2024 and December 30, 2023) due October 1, 2027",
+              "amount_outstanding_mm": 348.084,
+              "amount_available_mm": null,
+              "coupon_percent": null,
+              "maturity_year": 2027,
+              "priority": "Unsecured",
+              "parent_issuer": null,
+              "issue_date": "2020-09-29",
+              "instrument_type": "bond",
+              "lien_level": null,
+              "provenance": {
+                "source": "table",
+                "table_index": 0,
+                "row_text": "1.75 % Senior Unsecured Notes (net of unamortized discount and debt issuance costs of $ 1,916 and $ 2,486 at December 28, 2024 and December 30, 2023) due October 1, 2027 | 348,084 |  |  | 347,514 | "
+              }
+            },
+            {
+              "instrument_name": "5.95 % Senior Unsecured Notes (net of unamortized discount and debt issuance costs of $ 1,429 and $ 1,884 at December 28, 2024 and December 30, 2023) due March 9, 2028",
+              "amount_outstanding_mm": 298.571,
+              "amount_available_mm": null,
+              "coupon_percent": null,
+              "maturity_year": 2028,
+              "priority": "Unsecured",
+              "parent_issuer": null,
+              "issue_date": "2023-03-09",
+              "instrument_type": "bond",
+              "lien_level": null,
+              "provenance": {
+                "source": "table",
+                "table_index": 0,
+                "row_text": "5.95 % Senior Unsecured Notes (net of unamortized discount and debt issuance costs of $ 1,429 and $ 1,884 at December 28, 2024 and December 30, 2023) due March 9, 2028 | 298,571 |  |  | 298,116 | "
+              }
+            },
+            {
+              "instrument_name": "3.90 % Senior Unsecured Notes (net of unamortized discount and debt issuance costs of $ 3,259 and $ 3,851 at December 28, 2024, and December 30, 2023) due April 15, 2030",
+              "amount_outstanding_mm": 496.741,
+              "amount_available_mm": null,
+              "coupon_percent": null,
+              "maturity_year": 2030,
+              "priority": "Unsecured",
+              "parent_issuer": null,
+              "issue_date": "2020-04-16",
+              "instrument_type": "bond",
+              "lien_level": null,
+              "provenance": {
+                "source": "table",
+                "table_index": 0,
+                "row_text": "3.90 % Senior Unsecured Notes (net of unamortized discount and debt issuance costs of $ 3,259 and $ 3,851 at December 28, 2024, and December 30, 2023) due April 15, 2030 | 496,741 |  |  | 496,149 | "
+              }
+            },
+            {
+              "instrument_name": "3.50 % Senior Unsecured Notes (net of unamortized discount and debt issuance costs of $ 3,344 and $ 3,787 at December 28, 2024, and December 30, 2023) due March 15, 2032",
+              "amount_outstanding_mm": 346.655,
+              "amount_available_mm": null,
+              "coupon_percent": null,
+              "maturity_year": 2032,
+              "priority": "Unsecured",
+              "parent_issuer": null,
+              "issue_date": "2022-03-04",
+              "instrument_type": "bond",
+              "lien_level": null,
+              "provenance": {
+                "source": "table",
+                "table_index": 0,
+                "row_text": "3.50 % Senior Unsecured Notes (net of unamortized discount and debt issuance costs of $ 3,344 and $ 3,787 at December 28, 2024, and December 30, 2023) due March 15, 2032 | 346,655 |  |  | 346,213 | "
+              }
+            }
+          ],
+          "subtotal": {
+            "subtotal_outstanding_mm": 1789.161
+          }
+        }
+      ]
+    }
+  ],
+  "total_debt_mm": 6045.019,
+  "cash_mm": 1869.0,
+  "net_debt_mm": 4176.019,
+  "noncontrolling_interests_mm": 0.0,
+  "market_cap_mm": 3327.737,
+  "enterprise_value_mm": 7503.756,
+  "notes": [
+    "Market Cap and most recent FY EBITDA come from Seeking Alpha",
+    "All debt amounts come from the most recent 10-K filing",
+    "Following amounts are hardcoded: price, yield"
+  ],
+  "provenance": {
+    "balance_sheet": {
+      "cash": {
+        "concept": "CashAndCashEquivalentsAtCarryingValue",
+        "label": "Cash and cash equivalents",
+        "period_key": "Q4_2024",
+        "raw_value_obj": {
+          "display_value": 1869.0,
+          "numeric_value": 1869000000.0,
+          "format_type": "millions",
+          "decimals": -6,
+          "scale": 6,
+          "unit": "usd",
+          "is_estimated": false
+        }
+      },
+      "noncontrolling_interests": null
+    },
+    "debt_notes": [
+      "Selected table #0 as primary debt schedule (score=5).",
+      "Built issue-date map from narrative with 5 entries.",
+      "Extracted 1 credit facility instrument(s) from narrative."
+    ],
+    "lease_notes": []
+  }
+}
