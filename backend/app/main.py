@@ -86,16 +86,40 @@ def create_job(
     resolved_market_cap_mm = market_cap_mm
     market_cap_meta = None
 
+    # if resolved_market_cap_mm is None and ticker:
+    #     res = get_market_cap_mm_yfinance(ticker)
+    #     if res is not None:
+    #         resolved_market_cap_mm = float(res.market_cap_mm)
+    #         market_cap_meta = {
+    #             "source": res.source,
+    #             "currency": res.currency,
+    #             "as_of_utc": res.as_of_utc,
+    #             "details": res.details,
+    #         }
     if resolved_market_cap_mm is None and ticker:
+    try:
         res = get_market_cap_mm_yfinance(ticker)
-        if res is not None:
-            resolved_market_cap_mm = float(res.market_cap_mm)
-            market_cap_meta = {
-                "source": res.source,
-                "currency": res.currency,
-                "as_of_utc": res.as_of_utc,
-                "details": res.details,
-            }
+
+        if res is None or res.market_cap_mm is None:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Could not fetch market cap for ticker '{ticker}'. Provide market_cap_mm manually."
+            )
+
+        resolved_market_cap_mm = float(res.market_cap_mm)
+        market_cap_meta = {
+            "source": res.source,
+            "currency": res.currency,
+            "as_of_utc": res.as_of_utc,
+            "details": res.details,
+        }
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Market cap auto-fetch failed for ticker '{ticker}'. "
+                   f"Provide market_cap_mm manually. Error: {type(e).__name__}"
+        )
 
     if resolved_market_cap_mm is None:
         jm.delete_job_files(job.id)
