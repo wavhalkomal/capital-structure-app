@@ -2,13 +2,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, Tuple
 import time
 
-
-def _yf():
-    import yfinance as yf
-    return yf
+import requests
 
 
 @dataclass
@@ -20,192 +17,149 @@ class MarketCapResult:
     details: Dict[str, Any]
 
 
-_CACHE: Dict[str, tuple[float, MarketCapResult]] = {}
+# Simple in-memory cache (good enough for your use-case)
+_CACHE: Dict[str, Tuple[float, MarketCapResult]] = {}
 CACHE_TTL_SECONDS = 60 * 15  # 15 minutes
 
 
-def get_market_cap_mm_yfinance(ticker: str) -> Optional[MarketCapResult]:
+def _cache_get(ticker: str) -> Optional[MarketCapResult]:
+    now = time.time()
+    item = _CACHE.get(ticker)
+    if not item:
+        return None
+    expires_at, val = item
+    if expires_at <= now:
+        _CACHE.pop(ticker, None)
+        return None
+    return val
+
+
+def _cache_set(ticker: str, val: MarketCapResult) -> MarketCapResult:
+    _CACHE[ticker] = (time.time() + CACHE_TTL_SECONDS, val)
+    return val
+
+
+def _now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _normalize_ticker(ticker: str) -> Optional[str]:
+    t = (ticker or "").strip().upper()
+    return t or None
+
+
+def _fetch_yahoo_quote_endpoint(ticker: str) -> Optional[MarketCapResult]:
     """
-    Fetch market cap in $mm using yfinance.
-    Returns None if fetch fails.
+    Fallback provider: Yahoo quote endpoint
+    https://query1.finance.yahoo.com/v7/finance/quote?symbols=AAP
+    This often works even when yfinance .info is flaky, but can still be blocked.
     Never raises.
     """
-
     try:
-        t = (ticker or "").strip().upper()
-        if not t:
+        url = "https://query1.finance.yahoo.com/v7/finance/quote"
+        params = {"symbols": ticker}
+
+        # Headers matter on some cloud hosts
+        headers = {
+            "User-Agent": (
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/122.0.0.0 Safari/537.36"
+            ),
+            "Accept": "application/json,text/plain,*/*",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Connection": "keep-alive",
+        }
+
+        r = requests.get(url, params=params, headers=headers, timeout=10)
+        if r.status_code != 200:
             return None
 
-        now = time.time()
+        data = r.json()
+        result = (data or {}).get("quoteResponse", {}).get("result", [])
+        if not result:
+            return None
 
-        # Cache check
-        cached = _CACHE.get(t)
-        if cached and cached[0] > now:
-            return cached[1]
+        row = result[0] or {}
+        mc = row.get("marketCap")
+        currency = row.get("currency") or "USD"
 
-        yf = _yf()
-        ticker_obj = yf.Ticker(t)
+        if mc is None:
+            return None
+
+        return MarketCapResult(
+            market_cap_mm=float(mc) / 1e6,
+            currency=str(currency),
+            as_of_utc=_now_iso(),
+            source="yahoo_v7_quote",
+            details={
+                "marketCap_raw": mc,
+                "shortName": row.get("shortName"),
+                "exchange": row.get("fullExchangeName") or row.get("exchange"),
+            },
+        )
+    except Exception:
+        return None
+
+
+def _fetch_yfinance_fast(ticker: str) -> Optional[MarketCapResult]:
+    """
+    Primary provider: yfinance fast_info (lighter & more reliable than .info).
+    Never raises.
+    """
+    try:
+        import yfinance as yf  # import inside to keep module import stable
+
+        tkr = yf.Ticker(ticker)
 
         fi: Dict[str, Any] = {}
-        info: Dict[str, Any] = {}
-
-        # ---------------------------
-        # Try fast_info first (preferred)
-        # ---------------------------
         try:
-            fi = dict(ticker_obj.fast_info or {})
+            fi = dict(tkr.fast_info or {})
         except Exception:
             fi = {}
 
         mc = fi.get("market_cap")
         currency = fi.get("currency") or "USD"
 
-        # ---------------------------
-        # Fallback to .info only if needed
-        # ---------------------------
-        if mc is None:
-            try:
-                info = dict(ticker_obj.info or {})
-                mc = info.get("marketCap")
-                currency = info.get("currency") or currency
-            except Exception:
-                info = {}
-
-        # ---------------------------
-        # Final fallback: price * shares
-        # ---------------------------
-        if mc is None:
-            price = (
-                fi.get("last_price")
-                or fi.get("regular_market_price")
-                or info.get("regularMarketPrice")
-                or info.get("currentPrice")
-            )
-            shares = (
-                fi.get("shares_outstanding")
-                or info.get("sharesOutstanding")
-            )
-
-            if price and shares:
-                try:
-                    mc = float(price) * float(shares)
-                except Exception:
-                    mc = None
-
         if mc is None:
             return None
 
-        result = MarketCapResult(
+        return MarketCapResult(
             market_cap_mm=float(mc) / 1e6,
             currency=str(currency),
-            as_of_utc=datetime.now(timezone.utc).isoformat(),
+            as_of_utc=_now_iso(),
             source="yfinance_fast_info",
             details={
                 "marketCap_raw": mc,
-                "fast_info_keys": sorted(list(fi.keys()))[:30],
+                "fast_info_keys_sample": sorted(list(fi.keys()))[:40],
             },
         )
-
-        _CACHE[t] = (now + CACHE_TTL_SECONDS, result)
-        return result
-
     except Exception:
-        # Absolute safety net — never crash job creation
         return None
 
-# from __future__ import annotations
-# from dataclasses import dataclass
-# from datetime import datetime, timezone
-# from typing import Optional, Dict, Any
-# import time
 
-# def _yf():
-#     import yfinance as yf
-#     return yf
+def get_market_cap_mm_yfinance(ticker: str) -> Optional[MarketCapResult]:
+    """
+    Backward-compatible name (your code calls this).
+    BUT internally we do: cache -> yfinance fast_info -> yahoo quote endpoint.
+    Never raises.
+    """
+    t = _normalize_ticker(ticker)
+    if not t:
+        return None
 
-# @dataclass
-# class MarketCapResult:
-#     market_cap_mm: float
-#     currency: str
-#     as_of_utc: str
-#     source: str
-#     details: Dict[str, Any]
+    cached = _cache_get(t)
+    if cached:
+        return cached
 
-# _CACHE: Dict[str, tuple[float, float, MarketCapResult]] = {}
-# CACHE_TTL_SECONDS = 60 * 15  # 15 minutes
+    # 1) yfinance fast_info
+    res = _fetch_yfinance_fast(t)
+    if res:
+        return _cache_set(t, res)
 
-# def get_market_cap_mm_yfinance(ticker: str) -> Optional[MarketCapResult]:
-#     t = (ticker or "").strip().upper()
-#     if not t:
-#         return None
+    # 2) fallback: direct Yahoo endpoint
+    res = _fetch_yahoo_quote_endpoint(t)
+    if res:
+        return _cache_set(t, res)
 
-#     now = time.time()
-#     cached = _CACHE.get(t)
-#     if cached and cached[0] > now:
-#         return cached[2]
-
-#     yf = _yf()
-#     ticker_obj = yf.Ticker(t)
-
-#     info: Dict[str, Any] = {}      # <-- ALWAYS defined
-#     fi: Dict[str, Any] = {}        # <-- ALWAYS defined
-
-#     # Prefer fast_info (lighter / more reliable)
-#     try:
-#         fi = dict(ticker_obj.fast_info or {})
-#     except Exception:
-#         fi = {}
-
-#     mc = fi.get("market_cap")
-#     currency = fi.get("currency") or "USD"
-
-#     # Fallback to .info only if needed (can be blocked in cloud)
-#     if mc is None:
-#         try:
-#             info = dict(ticker_obj.info or {})
-#             mc = info.get("marketCap")
-#             currency = info.get("currency") or currency
-#         except Exception:
-#             info = {}
-
-#     # If still missing, try compute market cap from price * shares
-#     if mc is None:
-#         price = (
-#             fi.get("last_price")
-#             or fi.get("regular_market_price")
-#             or info.get("regularMarketPrice")
-#             or info.get("currentPrice")
-#         )
-#         shares = fi.get("shares_outstanding") or info.get("sharesOutstanding")
-#         if price and shares:
-#             try:
-#                 mc = float(price) * float(shares)
-#             except Exception:
-#                 mc = None
-
-#     if mc is None:
-#         return None
-
-#     # Build safe details without assuming info exists
-#     details = {
-#         "marketCap": mc,
-#         "currency": currency,
-#         "fast_info_keys": sorted(list(fi.keys()))[:40],
-#     }
-#     if info:
-#         details.update({
-#             "raw_info_keys": sorted(list(info.keys()))[:40],
-#             "regularMarketPrice": info.get("regularMarketPrice"),
-#             "sharesOutstanding": info.get("sharesOutstanding"),
-#         })
-
-#     result = MarketCapResult(
-#         market_cap_mm=float(mc) / 1e6,
-#         currency=str(currency),
-#         as_of_utc=datetime.now(timezone.utc).isoformat(),
-#         source="yfinance_fast_info",
-#         details=details,
-#     )
-
-#     _CACHE[t] = (now + CACHE_TTL_SECONDS, result.market_cap_mm, result)
-#     return result
+    return None
