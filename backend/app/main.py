@@ -7,7 +7,7 @@ from typing import Optional
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
-
+from fastapi.staticfiles import StaticFiles
 from .jobs import JobManager
 from .market_cap import get_market_cap_mm_yfinance
 from .settings import CORS_ALLOW_ORIGINS, MAX_UPLOAD_BYTES, STORAGE_DIR
@@ -181,27 +181,54 @@ from fastapi.responses import FileResponse
 from pathlib import Path
 from fastapi import HTTPException
 
-# Path to frontend/dist
-FRONTEND_DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"
+# # Path to frontend/dist
+# FRONTEND_DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"
+
+# if FRONTEND_DIST.exists():
+
+#     # Serve static assets (JS/CSS)
+#     app.mount(
+#         "/assets",
+#         StaticFiles(directory=str(FRONTEND_DIST / "assets")),
+#         name="assets",
+#     )
+
+#     # SPA fallback — serve index.html for all non-API routes
+#     @app.get("/{full_path:path}")
+#     async def serve_spa(full_path: str):
+#         # Don't override API routes
+#         if full_path.startswith("api/"):
+#             raise HTTPException(status_code=404, detail="Not Found")
+
+#         index_file = FRONTEND_DIST / "index.html"
+#         return FileResponse(str(index_file))
+
+# ---- Serve Vite frontend ----
+FRONTEND_DIST = Path(__file__).resolve().parents[1] / "frontend" / "dist"
 
 if FRONTEND_DIST.exists():
+    # Serve static assets
+    assets_dir = FRONTEND_DIST / "assets"
+    if assets_dir.exists():
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
 
-    # Serve static assets (JS/CSS)
-    app.mount(
-        "/assets",
-        StaticFiles(directory=str(FRONTEND_DIST / "assets")),
-        name="assets",
-    )
+    @app.get("/", include_in_schema=False)
+    def frontend_root():
+        return FileResponse(FRONTEND_DIST / "index.html")
 
-    # SPA fallback — serve index.html for all non-API routes
-    @app.get("/{full_path:path}")
-    async def serve_spa(full_path: str):
-        # Don't override API routes
-        if full_path.startswith("api/"):
+    # SPA fallback (so refresh on /some/page works)
+    @app.get("/{full_path:path}", include_in_schema=False)
+    def spa_fallback(full_path: str):
+        # Don’t hijack API/docs paths
+        if full_path.startswith(("api", "docs", "openapi.json")):
             raise HTTPException(status_code=404, detail="Not Found")
 
-        index_file = FRONTEND_DIST / "index.html"
-        return FileResponse(str(index_file))
+        file_path = FRONTEND_DIST / full_path
+        if file_path.exists() and file_path.is_file():
+            return FileResponse(file_path)
+
+        return FileResponse(FRONTEND_DIST / "index.html")
+        
 
 # Ensure storage dir exists
 STORAGE_DIR.mkdir(parents=True, exist_ok=True)
