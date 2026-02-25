@@ -33,11 +33,40 @@ def get_market_cap_mm_yfinance(ticker: str) -> Optional[MarketCapResult]:
         return cached[2]
 
     yf = _yf()
-    info = yf.Ticker(t).info  # network call
+    ticker_obj = yf.Ticker(t)
+    
+    # Prefer fast_info (more reliable in hosted environments)
+    try:
+        fi = ticker_obj.fast_info
+    except Exception:
+        return None
+    
+    mc = fi.get("market_cap")
+    currency = fi.get("currency") or "USD"
+    
+    # If fast_info missing market cap, try fallback
+    if mc is None:
+        try:
+            info = ticker_obj.info
+            mc = info.get("marketCap")
+            currency = info.get("currency") or currency
+        except Exception:
+            return None
 
-    # yfinance sometimes gives marketCap directly (best case)
-    mc = info.get("marketCap")
-    currency = info.get("currency") or "USD"
+
+    99999999
+
+    # ### commenting this lines
+    # info = yf.Ticker(t).info  # network call
+
+    # # yfinance sometimes gives marketCap directly (best case)
+    # mc = info.get("marketCap")
+    # currency = info.get("currency") or "USD"
+
+
+
+
+    
 
     # If marketCap not present, compute from price * shares
     if mc is None:
