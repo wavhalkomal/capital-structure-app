@@ -96,7 +96,6 @@ def create_job(
                 "as_of_utc": res.as_of_utc,
                 "details": res.details,
             }
-
     if resolved_market_cap_mm is None:
         jm.delete_job_files(job.id)
         raise HTTPException(
