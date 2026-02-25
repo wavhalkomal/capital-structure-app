@@ -286,7 +286,7 @@ export default function App() {
             </div>
 
             {/* ✅ BONUS PANELS AT THE END */}
-            <BonusPanels jobId={jobId} apiBase={API_BASE} />
+            <BonusPanels jobId={job?.job_id || ""} apiBase={API_BASE} />
           </>
         )}
       </section>
