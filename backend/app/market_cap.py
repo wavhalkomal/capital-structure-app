@@ -54,8 +54,6 @@ def get_market_cap_mm_yfinance(ticker: str) -> Optional[MarketCapResult]:
             return None
 
 
-    99999999
-
     # ### commenting this lines
     # info = yf.Ticker(t).info  # network call
 
