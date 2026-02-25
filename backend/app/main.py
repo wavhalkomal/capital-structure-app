@@ -86,33 +86,33 @@ def create_job(
     resolved_market_cap_mm = market_cap_mm
     market_cap_meta = None
 
-    # if resolved_market_cap_mm is None and ticker:
-    #     res = get_market_cap_mm_yfinance(ticker)
-    #     if res is not None:
-    #         resolved_market_cap_mm = float(res.market_cap_mm)
-    #         market_cap_meta = {
-    #             "source": res.source,
-    #             "currency": res.currency,
-    #             "as_of_utc": res.as_of_utc,
-    #             "details": res.details,
-    #         }
     if resolved_market_cap_mm is None and ticker:
-    try:
         res = get_market_cap_mm_yfinance(ticker)
+        if res is not None:
+            resolved_market_cap_mm = float(res.market_cap_mm)
+            market_cap_meta = {
+                "source": res.source,
+                "currency": res.currency,
+                "as_of_utc": res.as_of_utc,
+                "details": res.details,
+            }
+    # if resolved_market_cap_mm is None and ticker:
+    # try:
+    #     res = get_market_cap_mm_yfinance(ticker)
 
-        if res is None or res.market_cap_mm is None:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Could not fetch market cap for ticker '{ticker}'. Provide market_cap_mm manually."
-            )
+    #     if res is None or res.market_cap_mm is None:
+    #         raise HTTPException(
+    #             status_code=400,
+    #             detail=f"Could not fetch market cap for ticker '{ticker}'. Provide market_cap_mm manually."
+    #         )
 
-        resolved_market_cap_mm = float(res.market_cap_mm)
-        market_cap_meta = {
-            "source": res.source,
-            "currency": res.currency,
-            "as_of_utc": res.as_of_utc,
-            "details": res.details,
-        }
+    #     resolved_market_cap_mm = float(res.market_cap_mm)
+    #     market_cap_meta = {
+    #         "source": res.source,
+    #         "currency": res.currency,
+    #         "as_of_utc": res.as_of_utc,
+    #         "details": res.details,
+    #     }
 
     except Exception as e:
         raise HTTPException(
