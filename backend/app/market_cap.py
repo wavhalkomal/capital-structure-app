@@ -4,7 +4,6 @@ from datetime import datetime, timezone
 from typing import Optional, Dict, Any
 import time
 
-# Lazy import so backend still boots even if missing
 def _yf():
     import yfinance as yf
     return yf
@@ -17,9 +16,7 @@ class MarketCapResult:
     source: str
     details: Dict[str, Any]
 
-# Simple in-memory cache (good enough for challenge)
 _CACHE: Dict[str, tuple[float, float, MarketCapResult]] = {}
-# key -> (expires_epoch, market_cap_mm, result)
 CACHE_TTL_SECONDS = 60 * 15  # 15 minutes
 
 def get_market_cap_mm_yfinance(ticker: str) -> Optional[MarketCapResult]:
@@ -34,59 +31,65 @@ def get_market_cap_mm_yfinance(ticker: str) -> Optional[MarketCapResult]:
 
     yf = _yf()
     ticker_obj = yf.Ticker(t)
-    
-    # Prefer fast_info (more reliable in hosted environments)
+
+    info: Dict[str, Any] = {}      # <-- ALWAYS defined
+    fi: Dict[str, Any] = {}        # <-- ALWAYS defined
+
+    # Prefer fast_info (lighter / more reliable)
     try:
-        fi = ticker_obj.fast_info
+        fi = dict(ticker_obj.fast_info or {})
     except Exception:
-        return None
-    
+        fi = {}
+
     mc = fi.get("market_cap")
     currency = fi.get("currency") or "USD"
-    
-    # If fast_info missing market cap, try fallback
+
+    # Fallback to .info only if needed (can be blocked in cloud)
     if mc is None:
         try:
-            info = ticker_obj.info
+            info = dict(ticker_obj.info or {})
             mc = info.get("marketCap")
             currency = info.get("currency") or currency
         except Exception:
-            return None
+            info = {}
 
-
-    # ### commenting this lines
-    # info = yf.Ticker(t).info  # network call
-
-    # # yfinance sometimes gives marketCap directly (best case)
-    # mc = info.get("marketCap")
-    # currency = info.get("currency") or "USD"
-
-
-
-
-    
-
-    # If marketCap not present, compute from price * shares
+    # If still missing, try compute market cap from price * shares
     if mc is None:
-        price = info.get("regularMarketPrice") or info.get("currentPrice")
-        shares = info.get("sharesOutstanding")
+        price = (
+            fi.get("last_price")
+            or fi.get("regular_market_price")
+            or info.get("regularMarketPrice")
+            or info.get("currentPrice")
+        )
+        shares = fi.get("shares_outstanding") or info.get("sharesOutstanding")
         if price and shares:
-            mc = float(price) * float(shares)
+            try:
+                mc = float(price) * float(shares)
+            except Exception:
+                mc = None
 
     if mc is None:
         return None
+
+    # Build safe details without assuming info exists
+    details = {
+        "marketCap": mc,
+        "currency": currency,
+        "fast_info_keys": sorted(list(fi.keys()))[:40],
+    }
+    if info:
+        details.update({
+            "raw_info_keys": sorted(list(info.keys()))[:40],
+            "regularMarketPrice": info.get("regularMarketPrice"),
+            "sharesOutstanding": info.get("sharesOutstanding"),
+        })
 
     result = MarketCapResult(
         market_cap_mm=float(mc) / 1e6,
         currency=str(currency),
         as_of_utc=datetime.now(timezone.utc).isoformat(),
-        source="yfinance",
-        details={
-            "raw_info_keys": sorted(list(info.keys()))[:40],  # keep it small
-            "marketCap": mc,
-            "regularMarketPrice": info.get("regularMarketPrice"),
-            "sharesOutstanding": info.get("sharesOutstanding"),
-        },
+        source="yfinance_fast_info",
+        details=details,
     )
 
     _CACHE[t] = (now + CACHE_TTL_SECONDS, result.market_cap_mm, result)
