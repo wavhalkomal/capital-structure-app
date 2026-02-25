@@ -13,6 +13,7 @@ from .jobs import JobManager
 from .market_cap import get_market_cap_mm_yfinance
 from .settings import CORS_ALLOW_ORIGINS, MAX_UPLOAD_BYTES, STORAGE_DIR
 
+
 # Parsers live in backend/parsers
 PARSERS_DIR = Path(__file__).resolve().parents[1] / "parsers"
 
@@ -35,9 +36,6 @@ def health():
 
 
 def _save_upload(upload: UploadFile, dest: Path) -> None:
-    """
-    Save upload to disk with a size cap.
-    """
     dest.parent.mkdir(parents=True, exist_ok=True)
 
     total = 0
@@ -78,7 +76,7 @@ def create_job(
         _save_upload(lease_note, job.input_dir / "lease_note.html")
         _save_upload(metadata, job.input_dir / "metadata.json")
 
-        # quick validation: metadata must be JSON
+        # metadata must be JSON
         try:
             json.loads((job.input_dir / "metadata.json").read_text(encoding="utf-8"))
         except Exception:
@@ -97,14 +95,15 @@ def create_job(
     resolved_market_cap_mm: Optional[float] = market_cap_mm
     market_cap_meta = None
 
-    # Normalize ticker
     norm_ticker = (ticker or "").strip().upper() or None
 
-    # If no manual override, try best-effort programmatic fetch
+    # If user didn't type market cap, try fetching it from ticker
     if resolved_market_cap_mm is None and norm_ticker:
+        res = None
         try:
             res = get_market_cap_mm_yfinance(norm_ticker)
         except Exception:
+            # absolutely never allow this to become a 500
             res = None
 
         if res is not None:
@@ -115,13 +114,29 @@ def create_job(
                 "as_of_utc": res.as_of_utc,
                 "details": res.details,
             }
+        else:
+            # If ticker was provided but fetch failed, return a clean 400 with an actionable message.
+            jm.delete_job_files(job.id)
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"Could not fetch market cap for ticker '{norm_ticker}' from the server environment. "
+                    "Please enter Market Cap ($mm) manually, or try again later."
+                ),
+            )
 
-    # IMPORTANT:
-    # Do NOT hard-fail job creation if market cap fetch fails.
-    # This keeps the app reliable on Railway and still earns bonus points when it works.
+    # If still missing after all attempts, enforce requirement
+    if resolved_market_cap_mm is None:
+        jm.delete_job_files(job.id)
+        raise HTTPException(
+            status_code=400,
+            detail="Missing market cap ($mm). Provide market_cap_mm ($mm) or provide a ticker to auto-fetch it.",
+        )
+
+    # Start pipeline
     jm.start_job(
         job.id,
-        market_cap_mm=resolved_market_cap_mm,  # may be None
+        market_cap_mm=resolved_market_cap_mm,
         period_end_text=period_end_text,
         ticker=norm_ticker,
         market_cap_meta=market_cap_meta,
@@ -199,8 +214,6 @@ def download_json(job_id: str):
 # ===============================
 # Serve React Frontend (Production)
 # ===============================
-
-# In your container you copy dist into /app/frontend/dist
 FRONTEND_DIST = Path(__file__).resolve().parents[1] / "frontend" / "dist"
 
 if FRONTEND_DIST.exists():
@@ -214,7 +227,6 @@ if FRONTEND_DIST.exists():
 
     @app.get("/{full_path:path}", include_in_schema=False)
     def spa_fallback(full_path: str):
-        # Don’t hijack API/docs/openapi
         if full_path.startswith(("api", "docs", "openapi.json")):
             raise HTTPException(status_code=404, detail="Not Found")
 
@@ -225,5 +237,4 @@ if FRONTEND_DIST.exists():
         return FileResponse(str(FRONTEND_DIST / "index.html"))
 
 
-# Ensure storage dir exists
 STORAGE_DIR.mkdir(parents=True, exist_ok=True)
