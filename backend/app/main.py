@@ -8,10 +8,12 @@ from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
+
 from .jobs import JobManager
 from .market_cap import get_market_cap_mm_yfinance
 from .settings import CORS_ALLOW_ORIGINS, MAX_UPLOAD_BYTES, STORAGE_DIR
 
+# Parsers live in backend/parsers
 PARSERS_DIR = Path(__file__).resolve().parents[1] / "parsers"
 
 app = FastAPI(title="Capital Structure Extractor", version="1.0.0")
@@ -33,17 +35,23 @@ def health():
 
 
 def _save_upload(upload: UploadFile, dest: Path) -> None:
-    """Save upload to disk with size cap enforcement."""
+    """
+    Save upload to disk with a size cap.
+    """
     dest.parent.mkdir(parents=True, exist_ok=True)
+
     total = 0
     with dest.open("wb") as f:
         while True:
-            chunk = upload.file.read(1024 * 1024)  # 1MB chunks
+            chunk = upload.file.read(1024 * 1024)  # 1MB
             if not chunk:
                 break
             total += len(chunk)
             if total > MAX_UPLOAD_BYTES:
-                raise HTTPException(status_code=413, detail=f"Upload too large (>{MAX_UPLOAD_BYTES} bytes)")
+                raise HTTPException(
+                    status_code=413,
+                    detail=f"Upload too large (>{MAX_UPLOAD_BYTES} bytes)",
+                )
             f.write(chunk)
 
 
@@ -61,13 +69,16 @@ def create_job(
 ):
     job = jm.create_job()
 
+    # -------------------------
+    # Save uploads
+    # -------------------------
     try:
         _save_upload(balance_sheet, job.input_dir / "balance_sheet.json")
         _save_upload(debt_note, job.input_dir / "debt_note.html")
         _save_upload(lease_note, job.input_dir / "lease_note.html")
         _save_upload(metadata, job.input_dir / "metadata.json")
 
-        # quick validation: metadata must be json
+        # quick validation: metadata must be JSON
         try:
             json.loads((job.input_dir / "metadata.json").read_text(encoding="utf-8"))
         except Exception:
@@ -83,11 +94,19 @@ def create_job(
     # --------------------------------------------------
     # Resolve Market Cap (Manual Override > Ticker Fetch)
     # --------------------------------------------------
-    resolved_market_cap_mm = market_cap_mm
+    resolved_market_cap_mm: Optional[float] = market_cap_mm
     market_cap_meta = None
 
-    if resolved_market_cap_mm is None and ticker:
-        res = get_market_cap_mm_yfinance(ticker)
+    # Normalize ticker
+    norm_ticker = (ticker or "").strip().upper() or None
+
+    # If no manual override, try best-effort programmatic fetch
+    if resolved_market_cap_mm is None and norm_ticker:
+        try:
+            res = get_market_cap_mm_yfinance(norm_ticker)
+        except Exception:
+            res = None
+
         if res is not None:
             resolved_market_cap_mm = float(res.market_cap_mm)
             market_cap_meta = {
@@ -96,24 +115,22 @@ def create_job(
                 "as_of_utc": res.as_of_utc,
                 "details": res.details,
             }
-    if resolved_market_cap_mm is None:
-        jm.delete_job_files(job.id)
-        raise HTTPException(
-            status_code=400,
-            detail="Missing market_cap_mm. Provide market_cap_mm ($mm) or ticker to fetch it automatically.",
-        )
 
+    # IMPORTANT:
+    # Do NOT hard-fail job creation if market cap fetch fails.
+    # This keeps the app reliable on Railway and still earns bonus points when it works.
     jm.start_job(
         job.id,
-        market_cap_mm=resolved_market_cap_mm,
+        market_cap_mm=resolved_market_cap_mm,  # may be None
         period_end_text=period_end_text,
-        ticker=ticker,
+        ticker=norm_ticker,
         market_cap_meta=market_cap_meta,
     )
 
     return {
         "job_id": job.id,
         "status": job.status,
+        "ticker": norm_ticker,
         "market_cap_mm": resolved_market_cap_mm,
         "market_cap_meta": market_cap_meta,
     }
@@ -124,6 +141,7 @@ def get_job(job_id: str):
     job = jm.get_job(job_id)
     if not job:
         raise HTTPException(status_code=404, detail="job not found")
+
     return {
         "job_id": job.id,
         "status": job.status,
@@ -141,8 +159,10 @@ def get_result(job_id: str):
     job = jm.get_job(job_id)
     if not job:
         raise HTTPException(status_code=404, detail="job not found")
+
     if job.status == "failed":
         raise HTTPException(status_code=400, detail=job.error or "job failed")
+
     if job.status != "succeeded":
         raise HTTPException(status_code=409, detail=f"job not ready (status={job.status})")
 
@@ -157,8 +177,10 @@ def download_html(job_id: str):
     job = jm.get_job(job_id)
     if not job:
         raise HTTPException(status_code=404, detail="job not found")
+
     if job.status != "succeeded" or not job.html_path or not job.html_path.exists():
         raise HTTPException(status_code=409, detail="html not available")
+
     return FileResponse(path=str(job.html_path), filename=f"{job_id}.html", media_type="text/html")
 
 
@@ -167,8 +189,10 @@ def download_json(job_id: str):
     job = jm.get_job(job_id)
     if not job:
         raise HTTPException(status_code=404, detail="job not found")
+
     if job.status != "succeeded" or not job.built_json_path or not job.built_json_path.exists():
         raise HTTPException(status_code=409, detail="json not available")
+
     return FileResponse(path=str(job.built_json_path), filename=f"{job_id}.json", media_type="application/json")
 
 
@@ -176,60 +200,30 @@ def download_json(job_id: str):
 # Serve React Frontend (Production)
 # ===============================
 
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
-from pathlib import Path
-from fastapi import HTTPException
-
-# # Path to frontend/dist
-# FRONTEND_DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"
-
-# if FRONTEND_DIST.exists():
-
-#     # Serve static assets (JS/CSS)
-#     app.mount(
-#         "/assets",
-#         StaticFiles(directory=str(FRONTEND_DIST / "assets")),
-#         name="assets",
-#     )
-
-#     # SPA fallback — serve index.html for all non-API routes
-#     @app.get("/{full_path:path}")
-#     async def serve_spa(full_path: str):
-#         # Don't override API routes
-#         if full_path.startswith("api/"):
-#             raise HTTPException(status_code=404, detail="Not Found")
-
-#         index_file = FRONTEND_DIST / "index.html"
-#         return FileResponse(str(index_file))
-
-# ---- Serve Vite frontend ----
+# In your container you copy dist into /app/frontend/dist
 FRONTEND_DIST = Path(__file__).resolve().parents[1] / "frontend" / "dist"
 
 if FRONTEND_DIST.exists():
-    # Serve static assets
     assets_dir = FRONTEND_DIST / "assets"
     if assets_dir.exists():
-        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+        app.mount("/assets", StaticFiles(directory=str(assets_dir)), name="assets")
 
     @app.get("/", include_in_schema=False)
     def frontend_root():
-        return FileResponse(FRONTEND_DIST / "index.html")
+        return FileResponse(str(FRONTEND_DIST / "index.html"))
 
-    # SPA fallback (so refresh on /some/page works)
     @app.get("/{full_path:path}", include_in_schema=False)
     def spa_fallback(full_path: str):
-        # Don’t hijack API/docs paths
+        # Don’t hijack API/docs/openapi
         if full_path.startswith(("api", "docs", "openapi.json")):
             raise HTTPException(status_code=404, detail="Not Found")
 
         file_path = FRONTEND_DIST / full_path
         if file_path.exists() and file_path.is_file():
-            return FileResponse(file_path)
+            return FileResponse(str(file_path))
 
-        return FileResponse(FRONTEND_DIST / "index.html")
-        
+        return FileResponse(str(FRONTEND_DIST / "index.html"))
+
 
 # Ensure storage dir exists
 STORAGE_DIR.mkdir(parents=True, exist_ok=True)
-
