@@ -114,12 +114,12 @@ def create_job(
     #         "details": res.details,
     #     }
 
-    except Exception as e:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Market cap auto-fetch failed for ticker '{ticker}'. "
-                   f"Provide market_cap_mm manually. Error: {type(e).__name__}"
-        )
+    # except Exception as e:
+    #     raise HTTPException(
+    #         status_code=400,
+    #         detail=f"Market cap auto-fetch failed for ticker '{ticker}'. "
+    #                f"Provide market_cap_mm manually. Error: {type(e).__name__}"
+    #     )
 
     if resolved_market_cap_mm is None:
         jm.delete_job_files(job.id)
