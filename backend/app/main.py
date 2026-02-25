@@ -12,7 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from .jobs import JobManager
 from .market_cap import get_market_cap_mm_yfinance
 from .settings import CORS_ALLOW_ORIGINS, MAX_UPLOAD_BYTES, STORAGE_DIR
-
+from .bonus import build_citations, run_self_assessment
 
 # Parsers live in backend/parsers
 PARSERS_DIR = Path(__file__).resolve().parents[1] / "parsers"
@@ -198,6 +198,27 @@ def download_html(job_id: str):
 
     return FileResponse(path=str(job.html_path), filename=f"{job_id}.html", media_type="text/html")
 
+@app.get("/api/jobs/{job_id}/bonus/citations")
+def bonus_citations(job_id: str):
+    job = jm.get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="job not found")
+    if job.status != "succeeded":
+        raise HTTPException(status_code=409, detail="job not ready")
+
+    built = jm.read_result(job_id)  # must return the built JSON dict
+    return {"job_id": job_id, "citations": build_citations(built)}
+
+@app.get("/api/jobs/{job_id}/bonus/self_assessment")
+def bonus_self_assessment(job_id: str):
+    job = jm.get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="job not found")
+    if job.status != "succeeded":
+        raise HTTPException(status_code=409, detail="job not ready")
+
+    built = jm.read_result(job_id)
+    return {"job_id": job_id, "self_assessment": run_self_assessment(built)}
 
 @app.get("/api/jobs/{job_id}/download/json")
 def download_json(job_id: str):
