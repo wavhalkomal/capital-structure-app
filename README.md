@@ -55,12 +55,40 @@ alignment - Deterministic outputs
 
 # 🏗️ System Architecture
 
-Frontend (React + Vite) │ ▼ FastAPI Backend (Job Manager) │ ├──
-balance_sheet_json_parser.py ├── debt_note_html_parser.py ├──
-lease_note_html_parser.py ├── capital_structure_builder.py └──
-html_renderer.py │ ▼ Outputs: ├── built_capital_structure.json └──
-generated.html
-
+User (Browser)
+│
+├─ Frontend (React + Vite)
+│  ├─ File Upload UI
+│  ├─ Market Cap Input ($mm)
+│  ├─ Job Status Polling
+│  └─ HTML Preview (iframe)
+│
+▼
+Backend (FastAPI Application)
+│
+├─ app/
+│  ├─ main.py              # FastAPI entry point
+│  ├─ routes.py            # API endpoints
+│  └─ job_manager.py       # Concurrent job handling
+│
+├─ parsers/
+│  ├─ balance_sheet_json_parser.py
+│  ├─ debt_note_html_parser.py
+│  ├─ lease_note_html_parser.py
+│  ├─ capital_structure_builder.py
+│  └─ html_renderer.py
+│
+├─ storage/
+│  └─ <job_id>/
+│     ├─ input files
+│     ├─ built_capital_structure.json
+│     └─ generated.html
+│
+▼
+Outputs
+│
+├─ built_capital_structure.json
+└─ generated.html
 ------------------------------------------------------------------------
 
 # 🧩 Tech Stack
@@ -78,9 +106,22 @@ Concurrent job handling (max 10 by default)
 
 # 📁 Repository Structure
 
-. ├─ backend/ │ ├─ app/ │ ├─ parsers/ │ ├─ storage/ │ ├─ Dockerfile │ └─
-requirements.txt │ ├─ frontend/ │ ├─ src/ │ ├─ Dockerfile │ └─
-package.json │ ├─ docker-compose.yml ├─ LICENSE └─ README.md
+.
+├─ backend/
+│  ├─ app/                 # FastAPI application & job manager
+│  ├─ parsers/             # Financial parsing pipeline scripts
+│  ├─ storage/             # Per-job runtime artifacts
+│  ├─ Dockerfile
+│  └─ requirements.txt
+│
+├─ frontend/
+│  ├─ src/                 # React user interface
+│  ├─ Dockerfile
+│  └─ package.json
+│
+├─ docker-compose.yml      # Multi-container orchestration
+├─ LICENSE
+└─ README.md
 
 ------------------------------------------------------------------------
 
