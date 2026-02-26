@@ -1,89 +1,114 @@
-# Capital Structure Extraction Web App
+# 🚀 Capital Structure Extraction Platform
 
-This repo productizes the **Capital Structure Extraction Challenge** pipeline into a deployable web application.
+## AI‑Driven SEC Filing Parser + Enterprise Value Engine + Web Application
 
-- **Backend:** Python + FastAPI
-- **Frontend:** React (Vite)
-- **Pipeline:** Uses the existing parsers/renderers in `backend/parsers/` to produce an HTML table matching the train set style.
+A production‑ready full‑stack financial analytics platform that
+automates capital structure extraction from SEC filings and generates
+institutional‑grade Enterprise Value outputs.
 
-## What the app does
+This system combines: - Financial parsing logic - Deterministic
+enterprise value calculations - FastAPI backend orchestration - React
+frontend UI - Dockerized deployment architecture
 
-1. Upload **balance_sheet.json**, **debt_note.html**, **lease_note.html**, and **metadata.json**
-2. Provide **Market Cap ($mm)** (required)
-3. Backend runs:
-   - `capital_structure_builder.py` → `built_capital_structure.json`
-   - `html_renderer.py` → final `generated.html`
-4. Frontend polls job status and shows an **iframe preview** of the rendered HTML.
+------------------------------------------------------------------------
 
-The backend supports **up to 10 concurrent jobs** by design.
+# 📌 What This Project Does
 
----
+The application allows users to upload SEC filing components and
+automatically generates:
 
-## Repo layout
+• Structured Capital Stack (JSON)\
+• Net Debt Calculation\
+• Enterprise Value Calculation\
+• AAP‑style formatted HTML output\
+• Downloadable artifacts
 
-```
-.
-├─ backend/
-│  ├─ app/                 # FastAPI app + job manager
-│  ├─ parsers/             # your existing scripts (copied here)
-│  ├─ storage/             # per-job inputs/outputs (runtime)
-│  ├─ Dockerfile
-│  └─ requirements.txt
-├─ frontend/
-│  ├─ src/                 # React UI
-│  └─ Dockerfile
-├─ docker-compose.yml
-├─ LICENSE
-└─ README.md
-```
+Designed for: - Private Equity screening - Credit research automation -
+Investment banking modeling - Financial AI pipelines - SEC filing
+intelligence systems
 
----
+------------------------------------------------------------------------
 
-## Local dev (recommended)
+# 📂 Required Inputs
 
-### 1) Backend
+Users upload:
 
-```bash
-cd backend
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+-   balance_sheet.json
+-   debt_note.html
+-   lease_note.html
+-   metadata.json
+-   Market Cap (\$mm)
 
-# optional
-cp .env.example .env
+------------------------------------------------------------------------
 
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-```
+# 📊 Financial Logic
 
-Backend health check:
+Net Debt = Total Debt − Cash & Cash Equivalents
 
-- `GET http://localhost:8000/api/health`
+Enterprise Value = Net Debt + Noncontrolling Interests + Market
+Capitalization
 
-### 2) Frontend
+Precision safeguards ensure: - No rounding drift - Exact formatting
+alignment - Deterministic outputs
 
-```bash
-cd frontend
-npm install
-cp .env.example .env
-npm run dev
-```
+------------------------------------------------------------------------
 
-Open:
+# 🏗️ System Architecture
 
-- `http://localhost:5173`
+Frontend (React + Vite) │ ▼ FastAPI Backend (Job Manager) │ ├──
+balance_sheet_json_parser.py ├── debt_note_html_parser.py ├──
+lease_note_html_parser.py ├── capital_structure_builder.py └──
+html_renderer.py │ ▼ Outputs: ├── built_capital_structure.json └──
+generated.html
 
----
+------------------------------------------------------------------------
 
-## Run with Docker Compose
+# 🧩 Tech Stack
 
-```bash
+Backend: - Python 3.10+ - FastAPI - BeautifulSoup (HTML parsing) -
+Uvicorn - Subprocess execution - Docker
+
+Frontend: - React (Vite) - Axios - Job polling architecture - iframe
+HTML rendering
+
+Infrastructure: - Docker Compose - Environment variable configuration -
+Concurrent job handling (max 10 by default)
+
+------------------------------------------------------------------------
+
+# 📁 Repository Structure
+
+. ├─ backend/ │ ├─ app/ │ ├─ parsers/ │ ├─ storage/ │ ├─ Dockerfile │ └─
+requirements.txt │ ├─ frontend/ │ ├─ src/ │ ├─ Dockerfile │ └─
+package.json │ ├─ docker-compose.yml ├─ LICENSE └─ README.md
+
+------------------------------------------------------------------------
+
+# 🛠️ Local Development
+
+Backend:
+
+cd backend python -m venv .venv source .venv/bin/activate pip install -r
+requirements.txt uvicorn app.main:app --reload --port 8000
+
+Health Check: GET http://localhost:8000/api/health
+
+Frontend:
+
+cd frontend npm install npm run dev
+
+Access UI: http://localhost:5173
+
+------------------------------------------------------------------------
+
+# 🐳 Docker Deployment
+
 docker compose up --build
-```
 
-- Frontend: `http://localhost:5173`
-- Backend: `http://localhost:8000`
+Access: Frontend → http://localhost:5173\
+Backend → http://localhost:8000
 
----
+------------------------------------------------------------------------
 
 ## API
 
@@ -121,36 +146,70 @@ Returns:
 - `GET /api/jobs/{job_id}/download/html`
 - `GET /api/jobs/{job_id}/download/json`
 
----
+------------------------------------------------------------------------
 
-## Deployment
+# ☁️ Production Deployment
 
-### Backend (Railway / Fly.io / Render)
+Backend can be deployed on: - Render - Railway - Fly.io - AWS ECS -
+Azure Container Apps
 
-- Deploy `backend/` as a Docker service.
-- Set env vars:
-  - `CORS_ALLOW_ORIGINS=<your-frontend-origin>`
-  - `MAX_CONCURRENT_JOBS=10`
-  - `MAX_UPLOAD_BYTES=52428800` (or higher if needed)
+Frontend can be deployed on: - Vercel - Netlify
 
-### Frontend (Vercel)
+Required Backend Environment Variables:
 
-- Deploy `frontend/`.
-- Set build-time env var:
-  - `VITE_API_BASE=<your-backend-url>`
+CORS_ALLOW_ORIGINS=https://`<frontend-domain>`{=html}
+MAX_CONCURRENT_JOBS=10 MAX_UPLOAD_BYTES=52428800
 
----
+Frontend Environment Variable:
 
-## Notes
+VITE_API_BASE=https://`<backend-domain>`{=html}
 
-- All output amounts are expected to be in **$mm**.
-- The backend runs your existing scripts via subprocess to avoid assumptions about internal function names.
-- You can extend this app with:
-  - **Market cap lookup** (ticker → API)
-  - **Citations** (link values to source ranges)
-  - **Self-assessment** (diff output vs expected patterns)
+------------------------------------------------------------------------
 
----
+# 📈 Market Cap Handling
+
+Current Implementation: Market Cap is entered manually in the UI and
+passed to the backend pipeline.
+
+Future Enhancement: Automatic Market Cap fetching via API integration
+using: - Polygon.io - Financial Modeling Prep - IEX Cloud - Alpha
+Vantage
+
+Proposed Flow: 1. User enters ticker 2. Backend fetches live market cap
+3. Converts to \$mm 4. Stores value with timestamp in job artifacts
+
+------------------------------------------------------------------------
+
+# 🔐 Concurrency & Performance
+
+-   Supports up to 10 concurrent jobs
+-   Uses subprocess isolation for parser execution
+-   Stores per-job artifacts under backend/storage/
+-   Designed for stateless horizontal scaling
+
+------------------------------------------------------------------------
+
+# 💼 Real‑World Applications
+
+-   Capital Structure Analytics
+-   Deal Evaluation
+-   Debt Instrument Classification
+-   Enterprise Valuation Automation
+-   Financial Data Engineering Projects
+
+------------------------------------------------------------------------
+⭐
+# 👩🏻‍💻 Author
+
+Komal Wavhal\
+M.S. Computer Science (AI/ML)\
+Financial AI & Automation Engineer
+
+GitHub: https://github.com/wavhalkomal\
+Portfolio: wavhalkomal.github.io
+
+------------------------------------------------------------------------
+
 
 ## License
 
