@@ -55,6 +55,7 @@ alignment - Deterministic outputs
 
 # 🏗️ System Architecture
 
+```
 User (Browser)
 │
 ├─ Frontend (React + Vite)
@@ -89,6 +90,8 @@ Outputs
 │
 ├─ built_capital_structure.json
 └─ generated.html
+```
+
 ------------------------------------------------------------------------
 
 # 🧩 Tech Stack
@@ -106,6 +109,7 @@ Concurrent job handling (max 10 by default)
 
 # 📁 Repository Structure
 
+```
 .
 ├─ backend/
 │  ├─ app/                 # FastAPI application & job manager
@@ -122,6 +126,7 @@ Concurrent job handling (max 10 by default)
 ├─ docker-compose.yml      # Multi-container orchestration
 ├─ LICENSE
 └─ README.md
+```
 
 ------------------------------------------------------------------------
 
